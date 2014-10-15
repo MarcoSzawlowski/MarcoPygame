@@ -20,19 +20,12 @@ IDE: Pycharm (which is why there are a bunch of files that seem like giberish an
 
 #GOING TO IMPLIMENT
 - World map (next priority)
-
 - Dungeon maps
-
 - map editor
-
 - enemies
-
 - weapons
-
 - npcs
-
 - save states (for player and world)
-
 - build it into an executable file
 
 #CONTROLS (will change)
