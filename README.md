@@ -13,7 +13,7 @@ IDE: Pycharm (which is why there are a bunch of files that seem like giberish an
 + Main Loop
 + Basic Controls
 + Sprint
-+ Basic collision detection for world objects
++ Basic collision detection for world objects (slight bug where bottom and right clipping of player is off)
 + World Grid (right now only 64x48 (40px by 40px blocks))
 + Damage and Healing system
 + 60 fps ticks (Pygame feature, hopefully I'm using it correctly and no issues pop up for lower FPS such as the game running in slow motion)
