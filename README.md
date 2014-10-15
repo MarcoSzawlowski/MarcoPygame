@@ -35,9 +35,7 @@ IDE: Pycharm (which is why there are a bunch of files that seem like giberish an
 
 -build it into an executable file
 
-#CONTROLS
-*all controls will probably be changed just placeholders
-
+#CONTROLS (will change)
 +wasd movement
 +q/e hurt/heal
 +f debug mode for collision
