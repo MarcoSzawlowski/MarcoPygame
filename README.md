@@ -11,7 +11,7 @@ IDE: Pycharm (which is why there are a bunch of files that seem like giberish an
 #ALREADY IMPLIMENTED
 + Basic Drawings
 + Main Loop
-+ Basic Controls
++ Basic Movement and Controls
 + Sprint
 + Basic collision detection for world objects (slight bug where bottom and right clipping of player is off)
 + World Grid (right now only 64x48 (40px by 40px blocks))
