@@ -2,7 +2,7 @@ MarcoPygame
 ===========
 
 #IMPORTANT:
-Using Python 3.3 with Pygame
+Using Python 3.3 with pygame 1.9.2a0
 
 Windows 8.1
 
