@@ -19,21 +19,21 @@ IDE: Pycharm (which is why there are a bunch of files that seem like giberish an
 + 60 fps ticks (Pygame feature, hopefully I'm using it correctly and no issues pop up for lower FPS such as the game running in slow motion)
 
 #GOING TO IMPLIMENT
--World map (next priority)
+- World map (next priority)
 
--Dungeon maps
+- Dungeon maps
 
--map editor
+- map editor
 
--enemies
+- enemies
 
--weapons
+- weapons
 
--npcs
+- npcs
 
--save states (for player and world)
+- save states (for player and world)
 
--build it into an executable file
+- build it into an executable file
 
 #CONTROLS (will change)
 + "wasd" movement
