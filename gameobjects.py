@@ -55,17 +55,45 @@ class Player(GameObject):
         self.yset_vel(3.6)
 
 # UPDATE:
-    def update(self):
-        self.position[0] += self.velocity[0]
-        self.position[1] += self.velocity[1]
+    def update(self, collide_list):
+        # Make a collision rectangle for the movement of the character
+        horizontal = 0
+        vertical = 0
+        if self.velocity[0] > 0:
+            horizontal = 1
+            move_horizontal = pygame.Rect(self.position[0] + self.width, self.position[1], self.velocity[0], self.height)
+        else:
+            move_horizontal = pygame.Rect(self.position[0] - self.velocity[0], self.position[1], self.velocity[0], self.height)
 
-        # Change direction
+        if self.velocity[1] > 0:
+            vertical = 1
+            move_vertical = pygame.Rect(self.position[0],self.position[1] + self.height, self.width, self.velocity[1])
+        else:
+            move_vertical = pygame.Rect(self.position[0],self.position[1] - self.velocity[1], self.width, self.velocity[1])
+
+        map_collision = self.collidemap_vertical(collide_list, move_vertical, vertical)
+
+        # collidemap will return duple where first element is either true or false for collision
+        if map_collision[0]:
+            self.position[1] = map_collision[1]
+        else:
+            self.position[1] += self.velocity[1]
+
+        map_collision = self.collidemap_horizontal(collide_list, move_horizontal, horizontal)
+
+        if map_collision[0]:
+            self.position[0] = map_collision[1]
+        else:
+            self.position[0] += self.velocity[0]
+
+
+        # Determine direction
         if (self.velocity[0] > 0):
             self.facingright = 1
         elif (self.velocity[0] < 0):
             self.facingright = 0
 
-        # handle jumping
+        # Handle jumping
         if self.isjump:
             if self.jumpcounter < 0:
                 self.canjump = False
@@ -81,6 +109,8 @@ class Player(GameObject):
             self.die()
         #print("jumping: " + str(self.isjump) + "  In air: " + str(self.inair))
 
+
+
 # DAMAGE: player takes damage, damage animation (handled in draw) and invulnerability for 1 second
     def hurt(self, amount):
         self.health += amount
@@ -88,7 +118,7 @@ class Player(GameObject):
             self.health = 999
 
 # HEAL: player heals amount
-    def heal(self, amount):
+    def heal(self, amount, type):
         self.health -= amount
         if self.health < 0:
             self.health = 0
@@ -105,24 +135,54 @@ class Player(GameObject):
         self.position = [550, 400]
 
 # COLLISION WORLD: handles collisions with world map objects
-    def collide_map(self, p, win):
-        playerbox = pygame.Rect(self.position[0],self.position[1],self.width,self.height)
-        playerfeet = pygame.Rect(self.position[0],self.position[1],self.width,self.height)
+    def collidemap_vertical(self, p, box, down):
         self.inair = True
-        #print(self.jumpcounter)
         for plats in p:
-            if plats.type == 0:
-                if self.velocity[1] > 0 and playerbox.colliderect(plats.box):
+            if (plats.type == 0 or plats.type == 1) and down:
+                if box.colliderect(plats.box):
                     self.inair = False
                     self.canjump = True
                     self.jumpcounter = self.maxjump
-                    self.position[1] = plats.position[1] - self.height
-            elif plats.type == 1:
-                if self.velocity[1] > 0 and playerbox.colliderect(plats.box):
+                    self.yset_vel(6)
+                    return (1, plats.position[1] - self.height)
+            elif down == 0 and plats.type == 0:
+                if box.colliderect(plats.box):
+                    print(plats.position[1] + plats.length)
+                    return (1, plats.position[1] + plats.length)
+        return (0, 0)
+
+    def collidemap_horizontal(self, p, box, right):
+        self.inair = True
+        for plats in p:
+             if plats.type == 0:
+                 if box.colliderect(plats.box):
                     self.inair = False
                     self.canjump = True
                     self.jumpcounter = self.maxjump
-                    self.position[1] = plats.position[1] - self.height
+                    if right:
+                        return (1, plats.position[0] - self.width)
+                    else:
+                        return (1, plats.position[0] + plats.width)
+        return (0, 0)
+
+#     def collide_map(self, p, win):
+#         playerbox = pygame.Rect(self.position[0],self.position[1],self.width,self.height)
+#         playerfeet = pygame.Rect(self.position[0],self.position[1],self.width,self.height)
+#         self.inair = True
+#         #print(self.jumpcounter)
+#         for plats in p:
+#             if plats.type == 0:
+#                 if self.velocity[1] > 0 and playerbox.colliderect(plats.box):
+#                     self.inair = False
+#                     self.canjump = True
+#                     self.jumpcounter = self.maxjump
+#                     self.position[1] = plats.position[1] - self.height
+#             elif plats.type == 1:
+#                 if self.velocity[1] > 0 and playerbox.colliderect(plats.box):
+#                     self.inair = False
+#                     self.canjump = True
+#                     self.jumpcounter = self.maxjump
+#                     self.position[1] = plats.position[1] - self.height
 
     def draw(self, win):
         # Figure out where we draw the person (either they are on screen or off)
@@ -187,6 +247,21 @@ class Player(GameObject):
         if offscreen:
             #print('got here')
             pygame.draw.circle(win, (200,0,0), (int(drawx + self.width/2), int(drawy + self.height/2)), int(self.height/2) + 20, 5)
+
+        if self.debug_collision:
+            if self.velocity[0] > 0:
+                move_horizontal = pygame.Rect(self.position[0] + self.width, self.position[1], self.velocity[0], self.height)
+            else:
+                move_horizontal = pygame.Rect(self.position[0] - self.velocity[0], self.position[1], self.velocity[0], self.height)
+
+            if self.velocity[1] > 0:
+                vertical = 1
+                move_vertical = pygame.Rect(self.position[0],self.position[1] + self.height, self.width, self.velocity[1])
+            else:
+                move_vertical = pygame.Rect(self.position[0],self.position[1] - self.velocity[1], self.width, self.velocity[1])
+
+            pygame.draw.rect(win,(255,50,50), move_vertical, 0)
+            pygame.draw.rect(win,(50,250,50), move_horizontal, 0)
 
 class Platform(GameObject):
 

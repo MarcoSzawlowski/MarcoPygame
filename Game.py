@@ -18,11 +18,13 @@ class Game():
         self.clock = clock
         self.debug_map = False
         self.font = pygame.font.Font(None, 100)
+        self.font2 = pygame.font.Font(None, 120)
         ## gameObjects[0] IS ALWAYS THE PLAYER
         self.gameObjects.append(Player(550, 400, 50, 100, 40, 3))
 
         self.platforms.append(Platform(300,500,1500,100,0))
         self.platforms.append(Platform(500,300,400,10,1))
+        self.platforms.append(Platform(800,200,400,100,0))
         self.platforms.append(Platform(500,100,400,10,1))
         self.platforms.append(Platform(-200,1000,700,10,1))
 
@@ -53,7 +55,7 @@ class Game():
                     elif event.key == pygame.K_q:
                         self.gameObjects[0].hurt(25)
                     elif event.key == pygame.K_e:
-                        self.gameObjects[0].heal(25)
+                        self.gameObjects[0].heal(25, 0)
                     elif event.key == pygame.K_f:
                         self.gameObjects[0].debug_collision = not self.gameObjects[0].debug_collision
                         self.debug_map = not self.debug_map
@@ -77,12 +79,10 @@ class Game():
 
     def update(self):
         for objects in self.gameObjects:
-            objects.update()
+            objects.update(self.platforms)
 
         for plats in self.platforms:
             plats.update()
-
-        self.gameObjects[0].collide_map(self.platforms, self.win)
 
     def draw(self):
 
@@ -103,7 +103,10 @@ class Game():
             offset_players += 100
             offset_lives = 0
             playerpercent = self.font.render(str(players.health) + "%", 1, (0,0,0))
+            #playerpercent2 = self.font2.render(str(players.health) + "%", 1, (0,0,0))
+            #self.win.blit(playerpercent2, (offset_players - 2, 720 - 120 - 5))
             self.win.blit(playerpercent, (offset_players, 720 - 120))
+
             for i in range(0,players.lives):
                 pygame.draw.circle(self.win, (0,100,100), (offset_players + offset_lives, 720 - 160), 20, 0)
                 offset_lives += 40
