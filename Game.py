@@ -19,11 +19,14 @@ class Game():
         self.debug_map = False
         self.font = pygame.font.Font(None, 100)
         self.font2 = pygame.font.Font(None, 120)
-        ## gameObjects[0] IS ALWAYS THE PLAYER
-        self.gameObjects.append(Player(550, 400, 50, 100, 40, 3))
 
+        ## gameObjects are the players (for now)
+        self.gameObjects.append(Player(550, 400, 50, 100, 40, 3))
+        #self.gameObjects.append(Player(700, 400, 50, 100, 40, 3))
+
+        ## add some platforms
         self.platforms.append(Platform(300,500,1500,100,0))
-        self.platforms.append(Platform(500,300,400,10,1))
+        self.platforms.append(Platform(100,300,200,10,1))
         self.platforms.append(Platform(800,200,400,100,0))
         self.platforms.append(Platform(500,100,400,10,1))
         self.platforms.append(Platform(-200,1000,700,10,1))
@@ -49,9 +52,9 @@ class Game():
                     elif event.key == pygame.K_s:
                         self.gameObjects[0].yset_vel(12)
                     elif event.key == pygame.K_a:
-                        self.gameObjects[0].xset_vel(-6)
+                        self.gameObjects[0].set_accel(-2)
                     elif event.key == pygame.K_d:
-                        self.gameObjects[0].xset_vel(6)
+                        self.gameObjects[0].set_accel(2)
                     elif event.key == pygame.K_q:
                         self.gameObjects[0].hurt(25)
                     elif event.key == pygame.K_e:
@@ -67,12 +70,13 @@ class Game():
                     elif event.key == pygame.K_s:
                         pass
                     elif event.key == pygame.K_a:
-                        self.gameObjects[0].xset_vel(0)
+                        self.gameObjects[0].set_accel(0)
                     elif event.key == pygame.K_d:
-                        self.gameObjects[0].xset_vel(0)
+                        self.gameObjects[0].set_accel(0)
             # GAME: call all important updates and draw methods
             self.update()
             self.draw()
+
 
             # DISPLAY: update the screen
             pygame.display.update()
@@ -100,7 +104,7 @@ class Game():
         # DISPLAY: Health / Lives
         offset_players = 0
         for players in self.gameObjects:
-            offset_players += 100
+            offset_players += 400
             offset_lives = 0
             playerpercent = self.font.render(str(players.health) + "%", 1, (0,0,0))
             #playerpercent2 = self.font2.render(str(players.health) + "%", 1, (0,0,0))

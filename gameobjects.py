@@ -54,8 +54,28 @@ class Player(GameObject):
         self.isjump = False
         self.yset_vel(3.6)
 
+    def set_accel(self, value):
+        self.acceleration[0] = value
+
 # UPDATE:
     def update(self, collide_list):
+        # DO ACCELERATION FIRST
+        if (self.acceleration[0] == 0):
+            if self.velocity[0] > 0:
+                self.velocity[0] -= 1
+                if self.velocity[0] <= 0:
+                    self.velocity[0] = 0
+            elif self.velocity[0] < 0:
+                self.velocity[0] += 1
+                if self.velocity[0] >= 0:
+                    self.velocity[0] = 0
+        else:
+            self.velocity[0] += self.acceleration[0]
+            if self.velocity[0] > 12:
+                self.velocity[0] = 12
+            elif self.velocity[0] < -12:
+                self.velocity[0] = -12
+
         # Make a collision rectangle for the movement of the character
         horizontal = 0
         vertical = 0
@@ -83,6 +103,7 @@ class Player(GameObject):
 
         if map_collision[0]:
             self.position[0] = map_collision[1]
+            print(self.position[0])
         else:
             self.position[0] += self.velocity[0]
 
@@ -126,6 +147,10 @@ class Player(GameObject):
 # DEATH: when player loses all health bars / instant death
     def die(self):
         print("You have died ")
+        self.lives -= 1
+        if self.lives < 1:
+            self.lives = 0
+            print('Game OVER')
         self.respawn()
 
 
@@ -135,6 +160,9 @@ class Player(GameObject):
         self.position = [550, 400]
 
 # COLLISION WORLD: handles collisions with world map objects
+    # Types
+    #   0: Solid block
+    #   1: one way block
     def collidemap_vertical(self, p, box, down):
         self.inair = True
         for plats in p:
@@ -147,42 +175,23 @@ class Player(GameObject):
                     return (1, plats.position[1] - self.height)
             elif down == 0 and plats.type == 0:
                 if box.colliderect(plats.box):
-                    print(plats.position[1] + plats.length)
                     return (1, plats.position[1] + plats.length)
         return (0, 0)
 
     def collidemap_horizontal(self, p, box, right):
-        self.inair = True
+        #self.inair = True
         for plats in p:
              if plats.type == 0:
                  if box.colliderect(plats.box):
-                    self.inair = False
-                    self.canjump = True
-                    self.jumpcounter = self.maxjump
+                    #self.inair = False
+                    #self.canjump = True
+                    #self.jumpcounter = self.maxjump
                     if right:
                         return (1, plats.position[0] - self.width)
                     else:
+                        print(plats.position[0] + plats.width)
                         return (1, plats.position[0] + plats.width)
         return (0, 0)
-
-#     def collide_map(self, p, win):
-#         playerbox = pygame.Rect(self.position[0],self.position[1],self.width,self.height)
-#         playerfeet = pygame.Rect(self.position[0],self.position[1],self.width,self.height)
-#         self.inair = True
-#         #print(self.jumpcounter)
-#         for plats in p:
-#             if plats.type == 0:
-#                 if self.velocity[1] > 0 and playerbox.colliderect(plats.box):
-#                     self.inair = False
-#                     self.canjump = True
-#                     self.jumpcounter = self.maxjump
-#                     self.position[1] = plats.position[1] - self.height
-#             elif plats.type == 1:
-#                 if self.velocity[1] > 0 and playerbox.colliderect(plats.box):
-#                     self.inair = False
-#                     self.canjump = True
-#                     self.jumpcounter = self.maxjump
-#                     self.position[1] = plats.position[1] - self.height
 
     def draw(self, win):
         # Figure out where we draw the person (either they are on screen or off)
@@ -243,9 +252,8 @@ class Player(GameObject):
             else:
                 self.hurtcounter -= 1
 
-        # DRAW: offscreen bubble
+        # DRAW: off-screen bubble around a player view
         if offscreen:
-            #print('got here')
             pygame.draw.circle(win, (200,0,0), (int(drawx + self.width/2), int(drawy + self.height/2)), int(self.height/2) + 20, 5)
 
         if self.debug_collision:
