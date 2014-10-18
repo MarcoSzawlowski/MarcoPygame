@@ -8,25 +8,27 @@ Windows 8.1
 
 IDE: Pycharm (which is why there are a bunch of files that seem like giberish and not related to Python)
 
+# Game idea has now changed!
+I started as wanting to play around with a top down grid system but now I've decided to turn the game into a platform fighting game.  
+
 #ALREADY IMPLIMENTED
-+ Basic Drawings
++ Basic Drawings Placeholders
 + Main Loop
 + Basic Movement and Controls
-+ Sprint
++ Display of player off screen
 + Basic collision detection for world objects (slight bug where bottom and right clipping of player is off)
-+ World Grid (right now only 64x48 (40px by 40px blocks))
++ Basic Platform system
 + Damage and Healing system
 + 60 fps ticks (Pygame feature, hopefully I'm using it correctly and no issues pop up for lower FPS such as the game running in slow motion)
 
 #GOING TO IMPLIMENT
-- World map (next priority)
-- Dungeon maps
-- map editor
-- enemies
-- weapons
-- npcs
-- save states (for player and world)
-- build it into an executable file
+- Multiplayer (hopefully)
+- NPC players
+- Win screen and Statistics
+- Character select
+- Different characters
+- different attack moves
+- sprinting
 
 #CONTROLS (will change)
 + "wasd" movement
