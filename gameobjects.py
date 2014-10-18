@@ -84,10 +84,14 @@ class Player(GameObject):
 # DAMAGE: player takes damage, damage animation (handled in draw) and invulnerability for 1 second
     def hurt(self, amount):
         self.health += amount
+        if self.health > 999:
+            self.health = 999
 
 # HEAL: player heals amount
     def heal(self, amount):
         self.health -= amount
+        if self.health < 0:
+            self.health = 0
 
 # DEATH: when player loses all health bars / instant death
     def die(self):
