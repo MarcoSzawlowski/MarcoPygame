@@ -6,18 +6,19 @@ import pygame
 
 
 def main():
-    print('simulation starting')
+    print('Marco Bros Starting')
 
     pygame.init()
-    win = pygame.display.set_mode((640,480))
-    pygame.display.set_caption('Simulation')
+    pygame.font.init()
+    win = pygame.display.set_mode((1280, 720))
+    pygame.display.set_caption('Marco Bros')
 
     clock = pygame.time.Clock()
 
     game = Game(win, clock)
     game.gameloop()
 
-    print('exited simulation')
+    print('exited game')
 
 
 if __name__ == "__main__":
