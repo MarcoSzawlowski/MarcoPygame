@@ -1,7 +1,9 @@
-__author__ = 'Marco'
-import pygame
 import sys
-from gameobjects import *
+import pygame
+
+
+from player.human import *
+from platform.platforms import *
 
 
 class Game():
@@ -21,7 +23,7 @@ class Game():
         self.font2 = pygame.font.Font(None, 120)
 
         ## gameObjects are the players (for now)
-        self.gameObjects.append(Player(550, 400, 50, 100, 40, 3))
+        self.gameObjects.append(Human(550, 400, 50, 100, 40, 3))
         #self.gameObjects.append(Player(700, 400, 50, 100, 40, 3))
 
         ## add some platforms

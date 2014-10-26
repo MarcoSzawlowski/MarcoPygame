@@ -1,29 +1,8 @@
-__author__ = 'Marco'
 import pygame
-from random import randrange
+from player.players import *
 
 
-class GameObject:
-    def __init__(self, x, y):
-        self.position = [x, y]
-        self.velocity = [0, 0]
-        self.acceleration = [0, 0]
-
-    def update(self):
-        self.position[0] += self.velocity[0]
-        self.position[1] += 3.6
-
-    def draw(self, win):
-        pass
-
-    def xset_vel(self, x):
-        self.velocity[0] = x
-
-    def yset_vel(self, y):
-        self.velocity[1] = y
-
-
-class Player(GameObject):
+class Human(Players):
 
     def __init__(self, x, y, width, height, maxjump, lives):
         super().__init__(x, y)
@@ -270,21 +249,3 @@ class Player(GameObject):
 
             pygame.draw.rect(win,(255,50,50), move_vertical, 0)
             pygame.draw.rect(win,(50,250,50), move_horizontal, 0)
-
-class Platform(GameObject):
-
-    def __init__(self, x, y, width, length, type):
-        super().__init__(x, y)
-        self.width = width
-        self.length = length
-        self.type = type
-        self.box = pygame.Rect(self.position[0],self.position[1],self.width,self.length)
-
-    def update(self):
-        pass
-
-    def draw(self, win):
-        if self.type == 0:
-            pygame.draw.rect(win, (0, 0, 0), self.box, 0)
-        if self.type == 1:
-            pygame.draw.rect(win, (100, 100, 100), self.box, 1)
