@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aec3280f-f556-49ca-9178-2b206b4cdf4f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Game.py" afterPath="$PROJECT_DIR$/Game.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/player/human.py" afterPath="$PROJECT_DIR$/player/human.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platform/platforms.py" afterPath="$PROJECT_DIR$/platform/platforms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/player/players.py" afterPath="$PROJECT_DIR$/player/players.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MarcoPygame.iws" />
@@ -52,8 +48,8 @@
       <file leaf-file-name="players.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/player/players.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4678748" vertical-offset="4017" max-vertical-offset="4624">
-              <caret line="253" column="60" selection-start-line="253" selection-start-column="60" selection-end-line="253" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.83196044" vertical-offset="4017" max-vertical-offset="4624">
+              <caret line="266" column="0" selection-start-line="266" selection-start-column="0" selection-end-line="266" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -401,7 +397,11 @@
       <created>1414436431725</created>
       <updated>1414436431725</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added simple ledge grab and state">
+      <created>1414439553103</created>
+      <updated>1414439553103</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -468,7 +468,8 @@
     <MESSAGE value="added ability to go through hollow platforms by pressing down" />
     <MESSAGE value="Added basic UI setup&#10;&#10;Fixed some collision issues&#10;&#10;Added more states&#10;&#10;Can now fully go down one sided platforms" />
     <MESSAGE value="Fixed collision" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed collision" />
+    <MESSAGE value="Added simple ledge grab and state" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added simple ledge grab and state" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -909,8 +910,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/player/players.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4678748" vertical-offset="4017" max-vertical-offset="4624">
-          <caret line="253" column="60" selection-start-line="253" selection-start-column="60" selection-end-line="253" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.83196044" vertical-offset="4017" max-vertical-offset="4624">
+          <caret line="266" column="0" selection-start-line="266" selection-start-column="0" selection-end-line="266" selection-end-column="0" />
           <folding />
         </state>
       </provider>
