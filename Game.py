@@ -52,11 +52,11 @@ class Game():
                     elif event.key == pygame.K_w:
                         pass
                     elif event.key == pygame.K_s:
-                        self.gameObjects[0].yset_vel(12)
+                        self.gameObjects[0].down()
                     elif event.key == pygame.K_a:
-                        self.gameObjects[0].set_accel(-2)
+                        self.gameObjects[0].set_accel_x(-1)
                     elif event.key == pygame.K_d:
-                        self.gameObjects[0].set_accel(2)
+                        self.gameObjects[0].set_accel_x(1)
                     elif event.key == pygame.K_q:
                         self.gameObjects[0].hurt(25)
                     elif event.key == pygame.K_e:
@@ -72,9 +72,9 @@ class Game():
                     elif event.key == pygame.K_s:
                         pass
                     elif event.key == pygame.K_a:
-                        self.gameObjects[0].set_accel(0)
+                        self.gameObjects[0].set_accel_x(0)
                     elif event.key == pygame.K_d:
-                        self.gameObjects[0].set_accel(0)
+                        self.gameObjects[0].set_accel_x(0)
             # GAME: call all important updates and draw methods
             self.update()
             self.draw()
