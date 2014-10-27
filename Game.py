@@ -21,7 +21,7 @@ class Game():
 
         ## gameObjects are the players (for now)
         self.gameObjects.append(Human(550, 400, 50, 100, 40, 3))
-        self.gameObjects.append(AI(600, 400, 50, 100, 30, 3, "jump"))
+        #self.gameObjects.append(AI(600, 400, 50, 100, 30, 3, "jump"))
 
         ## add some platforms
         self.platforms.append(Platform(300,500,1500,100,0))

@@ -38,43 +38,8 @@ class Players:
     def update(self, collide_list):
 
         # DO ACCELERATION FIRST
-
-        # if the player is just coming to a stop without movement, we want them to decelerate naturally (friction)
-        if (self.acceleration[0] == 0):
-            if self.velocity[0] > 0:
-                self.velocity[0] -= 1
-                if self.velocity[0] <= 0:
-                    self.velocity[0] = 0
-            elif self.velocity[0] < 0:
-                self.velocity[0] += 1
-                if self.velocity[0] >= 0:
-                    self.velocity[0] = 0
-        else:
-            self.velocity[0] += self.acceleration[0]
-            if self.state == 2 or self.state == 4:
-                speed_max = 8
-            else:
-                speed_max = 12
-            if self.velocity[0] > speed_max:
-                self.velocity[0] = speed_max
-            elif self.velocity[0] < -speed_max:
-                self.velocity[0] = -speed_max
-
-        # now vertical (gravity)
-        self.velocity[1] += 3
-
-        # vertical other forces
-        self.velocity[1] += self.acceleration[1]
-
-        # make sure we aren't falling too fast
-        if self.velocity[1] > self.maxfall:
-            self.velocity[1] = self.maxfall
-
-        print(self.jumpcounter, " ", self.state, " ", self.velocity)
-        # make sure we arent jumping too fast
-        if self.state == 1 or self.state == 3:
-            if self.velocity[1] < -15:
-                self.velocity[1] = -15
+        if not self.state == 9:
+            self.handle_movement()
 
         # Make a collision rectangle for the movement of the character
         horizontal = 0
@@ -129,7 +94,7 @@ class Players:
 
     # MOVEMENT: SPACE TO JUMP
     def jump(self):
-        if self.state == 0:
+        if self.state == 0 or self.state == 9:
             self.state = 1
             self.acceleration[1] = -12
         elif self.state == 2:
@@ -196,6 +161,45 @@ class Players:
         self.state = 0
         self.position = [550, 400]
 
+# Handle Movement:
+    def handle_movement(self):
+    # if the player is just coming to a stop without movement, we want them to decelerate naturally (friction)
+        if (self.acceleration[0] == 0):
+            if self.velocity[0] > 0:
+                self.velocity[0] -= 1
+                if self.velocity[0] <= 0:
+                    self.velocity[0] = 0
+            elif self.velocity[0] < 0:
+                self.velocity[0] += 1
+                if self.velocity[0] >= 0:
+                    self.velocity[0] = 0
+        else:
+            self.velocity[0] += self.acceleration[0]
+            if self.state == 2 or self.state == 4:
+                speed_max = 8
+            else:
+                speed_max = 12
+            if self.velocity[0] > speed_max:
+                self.velocity[0] = speed_max
+            elif self.velocity[0] < -speed_max:
+                self.velocity[0] = -speed_max
+
+        # now vertical (gravity)
+        self.velocity[1] += 3
+
+        # vertical other forces
+        self.velocity[1] += self.acceleration[1]
+
+        # make sure we aren't falling too fast
+        if self.velocity[1] > self.maxfall:
+            self.velocity[1] = self.maxfall
+
+        print(self.jumpcounter, " ", self.state, " ", self.velocity)
+        # make sure we arent jumping too fast
+        if self.state == 1 or self.state == 3:
+            if self.velocity[1] < -15:
+                self.velocity[1] = -15
+
 # COLLISION WORLD: handles collisions with world map objects
     # Types
     #   0: Solid block
@@ -226,7 +230,7 @@ class Players:
                 # If player is going upwards
                 else:
                     if plats.type == 0:
-                        return (1, plats.position[1] + plats.length + 1)
+                        return (1, plats.position[1] + plats.length)
         if self.state == 0:
             self.state = 1
         return (0, 0)
@@ -240,9 +244,18 @@ class Players:
                     #self.canjump = True
                     #self.jumpcounter = self.maxjump
                     if right:
+                        if box.colliderect(plats.top_left):
+                            self.state = 9
+                            self.position[1] = plats.position[1]
+                            self.jumpcounter = self.maxjump
+                            self.velocity = [0,0]
                         return (1, plats.position[0] - self.width)
                     else:
-                        print(plats.position[0] + plats.width)
+                        if box.colliderect(plats.top_right):
+                            self.state = 9
+                            self.position[1] = plats.position[1]
+                            self.jumpcounter = self.maxjump
+                            self.velocity = [0,0]
                         return (1, plats.position[0] + plats.width)
         return (0, 0)
 
