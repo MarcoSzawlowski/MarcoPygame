@@ -52,8 +52,8 @@ class Players:
                     self.velocity[0] = 0
         else:
             self.velocity[0] += self.acceleration[0]
-            if self.state == 2:
-                speed_max = 6
+            if self.state == 2 or self.state == 4:
+                speed_max = 8
             else:
                 speed_max = 12
             if self.velocity[0] > speed_max:
@@ -147,8 +147,11 @@ class Players:
 
     def down(self):
         if self.state == 1 or self.state == 2 or self.state == 3 or self.state == 4:
+            self.state = 7
             self.maxfall = 24
             self.set_accel_y(15)
+        elif self.state == 0:
+            self.state = 8
 
     def set_accel_x(self, value):
         self.acceleration[0] = value
@@ -197,18 +200,29 @@ class Players:
     #   0: Solid block
     #   1: one way block
     def collidemap_vertical(self, p, box, down):
-        self.inair = True
         for plats in p:
-            if (plats.type == 0 or plats.type == 1) and down:
-                if box.colliderect(plats.box):
-                    self.state = 0
-                    self.maxfall = 8
-                    self.jumpcounter = self.maxjump
-                    self.yset_vel(6)
-                    return (1, plats.position[1] - self.height)
-            elif down == 0 and plats.type == 0:
-                if box.colliderect(plats.box):
-                    return (1, plats.position[1] + plats.length)
+            if box.colliderect(plats.box):
+                if down:
+                    # If player is pressing down
+                    if self.state == 7 or self.state == 8:
+                        if plats.type == 0:
+                            self.state = 2
+                            self.maxfall = 8
+                            self.jumpcounter = self.maxjump
+                            self.yset_vel(6)
+                            return (1, plats.position[1] - self.height)
+                    else:
+                        self.state = 0
+                        self.maxfall = 8
+                        self.jumpcounter = self.maxjump
+                        self.yset_vel(6)
+                        return (1, plats.position[1] - self.height)
+                else:
+                    if plats.type == 0:
+                        print("underddd")
+                        return (1, plats.position[1] + plats.length + 1)
+
+        # player just walked off edge
         if self.state == 0:
             self.state = 2
         return (0, 0)
