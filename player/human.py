@@ -107,13 +107,12 @@ class Human(Players):
             if self.velocity[0] > 0:
                 move_horizontal = pygame.Rect(self.position[0] + self.width, self.position[1], self.velocity[0], self.height)
             else:
-                move_horizontal = pygame.Rect(self.position[0] - self.velocity[0], self.position[1], self.velocity[0], self.height)
+                move_horizontal = pygame.Rect(self.position[0] + self.velocity[0], self.position[1], self.velocity[0], self.height)
 
             if self.velocity[1] > 0:
-                vertical = 1
                 move_vertical = pygame.Rect(self.position[0],self.position[1] + self.height, self.width, self.velocity[1])
             else:
-                move_vertical = pygame.Rect(self.position[0],self.position[1] - self.velocity[1], self.width, self.velocity[1])
+                move_vertical = pygame.Rect(self.position[0],self.position[1] + self.velocity[1], self.width, self.velocity[1])
 
             pygame.draw.rect(win,(255,50,50), move_vertical, 0)
             pygame.draw.rect(win,(50,250,50), move_horizontal, 0)

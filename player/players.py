@@ -83,13 +83,13 @@ class Players:
             horizontal = 1
             move_horizontal = pygame.Rect(self.position[0] + self.width, self.position[1], self.velocity[0], self.height)
         else:
-            move_horizontal = pygame.Rect(self.position[0] - self.velocity[0], self.position[1], self.velocity[0], self.height)
+            move_horizontal = pygame.Rect(self.position[0] + self.velocity[0], self.position[1], self.velocity[0], self.height)
 
         if self.velocity[1] > 0:
             vertical = 1
             move_vertical = pygame.Rect(self.position[0],self.position[1] + self.height, self.width, self.velocity[1])
         else:
-            move_vertical = pygame.Rect(self.position[0],self.position[1] - self.velocity[1], self.width, self.velocity[1])
+            move_vertical = pygame.Rect(self.position[0],self.position[1] + self.velocity[1], self.width, self.velocity[1])
 
         # collidemap will return duple where first element is either true or false for collision and second element
         #  is the new position due to collision
