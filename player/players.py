@@ -1,7 +1,10 @@
 import pygame
 
+from controls.human import *
+from controls.cpu import *
+
 class Players:
-    def __init__(self, x, y, width, height, maxjump, lives):
+    def __init__(self, x, y, width, height, maxjump, lives, control):
         self.position = [x, y]
         self.velocity = [0, 0]
         self.acceleration = [0, 0]
@@ -17,6 +20,11 @@ class Players:
         self.facingright = 1
         self.maxfall = 9
         self.state = 0 #default standing state
+
+        if control == "Human":
+            self.controller = Human(self)
+        else:
+            self.controller = CPU(self, "jump")
 
     # UPDATE:
     # player_states:
@@ -34,9 +42,11 @@ class Players:
     def handle_state(self, action):
         pass
 
+    def handle_input(self):
+        self.controller.handle_input()
 
     def update(self, collide_list):
-
+        print("got here f")
         # DO ACCELERATION FIRST
         if not self.state == 9:
             self.handle_movement()
@@ -173,12 +183,13 @@ class Players:
                 self.velocity[0] += 1
                 if self.velocity[0] >= 0:
                     self.velocity[0] = 0
+    # else make sure we aren't moving too fast (depending on if in air or on ground)
         else:
             self.velocity[0] += self.acceleration[0]
             if self.state == 2 or self.state == 4:
-                speed_max = 8
+                speed_max = 6
             else:
-                speed_max = 12
+                speed_max = 10
             if self.velocity[0] > speed_max:
                 self.velocity[0] = speed_max
             elif self.velocity[0] < -speed_max:
@@ -197,8 +208,8 @@ class Players:
         print(self.jumpcounter, " ", self.state, " ", self.velocity)
         # make sure we arent jumping too fast
         if self.state == 1 or self.state == 3:
-            if self.velocity[1] < -15:
-                self.velocity[1] = -15
+            if self.velocity[1] < -20:
+                self.velocity[1] = -20
 
 # COLLISION WORLD: handles collisions with world map objects
     # Types

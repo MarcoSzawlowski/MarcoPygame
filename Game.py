@@ -1,6 +1,6 @@
-from player.ai import *
-from player.human import *
 from platform.platforms import *
+from player.characters.prototype import *
+from player.players import *
 
 
 class Game():
@@ -20,8 +20,8 @@ class Game():
         self.font2 = pygame.font.Font(None, 120)
 
         ## gameObjects are the players (for now)
-        self.gameObjects.append(Human(550, 400, 50, 100, 40, 3))
-        #self.gameObjects.append(AI(600, 400, 50, 100, 30, 3, "jump"))
+        self.gameObjects.append(Prototype(550, 400, 50, 100, 40, 3, "Human"))
+        self.gameObjects.append(Prototype(600, 400, 50, 100, 30, 3, "CPU"))
 
         ## add some platforms
         self.platforms.append(Platform(300,500,1500,100,0))
@@ -38,6 +38,7 @@ class Game():
             # CONTROLS: main event handling
             for objects in self.gameObjects:
                 objects.handle_input()
+                print("got here")
             # GAME: call all important updates and draw methods
             self.update()
             self.draw()
@@ -48,6 +49,8 @@ class Game():
 
     def update(self):
         for objects in self.gameObjects:
+
+            print("got here three")
             objects.update(self.platforms)
 
         for plats in self.platforms:

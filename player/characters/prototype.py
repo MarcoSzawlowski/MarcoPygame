@@ -1,44 +1,13 @@
-import sys
 from player.players import *
 
 
-class Human(Players):
-    def handle_input(self):
-        for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
-                    elif event.key == pygame.K_SPACE:
-                        self.jump()
-                    elif event.key == pygame.K_w:
-                        pass
-                    elif event.key == pygame.K_s:
-                        self.down()
-                    elif event.key == pygame.K_a:
-                        self.set_accel_x(-1)
-                    elif event.key == pygame.K_d:
-                        self.set_accel_x(1)
-                    elif event.key == pygame.K_q:
-                        self.hurt(25)
-                    elif event.key == pygame.K_e:
-                        self.heal(25, 0)
-                    elif event.key == pygame.K_f:
-                        self.debug_collision = not self.debug_collision
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_w:
-                        pass
-                    elif event.key == pygame.K_SPACE:
-                        self.unjump()
-                    elif event.key == pygame.K_s:
-                        pass
-                    elif event.key == pygame.K_a:
-                        self.set_accel_x(0)
-                    elif event.key == pygame.K_d:
-                        self.set_accel_x(0)
+class Prototype(Players):
+    def update(self, collide_list):
+        super(Prototype, self).update(collide_list)
+        self.myupdate()
+
+    def myupdate(self):
+        print("test")
 
     def draw(self, win):
         # Figure out where we draw the person (either they are on screen or off)
