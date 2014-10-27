@@ -1,7 +1,4 @@
-import sys
-import pygame
-
-
+from player.ai import *
 from player.human import *
 from platform.platforms import *
 
@@ -24,7 +21,7 @@ class Game():
 
         ## gameObjects are the players (for now)
         self.gameObjects.append(Human(550, 400, 50, 100, 40, 3))
-        #self.gameObjects.append(Player(700, 400, 50, 100, 40, 3))
+        self.gameObjects.append(AI(600, 400, 50, 100, 30, 3, "jump"))
 
         ## add some platforms
         self.platforms.append(Platform(300,500,1500,100,0))
@@ -39,42 +36,8 @@ class Game():
             self.time += self.clock.tick(60)
 
             # CONTROLS: main event handling
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
-                    elif event.key == pygame.K_SPACE:
-                        self.gameObjects[0].jump()
-                    elif event.key == pygame.K_w:
-                        pass
-                    elif event.key == pygame.K_s:
-                        self.gameObjects[0].down()
-                    elif event.key == pygame.K_a:
-                        self.gameObjects[0].set_accel_x(-1)
-                    elif event.key == pygame.K_d:
-                        self.gameObjects[0].set_accel_x(1)
-                    elif event.key == pygame.K_q:
-                        self.gameObjects[0].hurt(25)
-                    elif event.key == pygame.K_e:
-                        self.gameObjects[0].heal(25, 0)
-                    elif event.key == pygame.K_f:
-                        self.gameObjects[0].debug_collision = not self.gameObjects[0].debug_collision
-                        self.debug_map = not self.debug_map
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_w:
-                        pass
-                    elif event.key == pygame.K_SPACE:
-                        self.gameObjects[0].unjump()
-                    elif event.key == pygame.K_s:
-                        pass
-                    elif event.key == pygame.K_a:
-                        self.gameObjects[0].set_accel_x(0)
-                    elif event.key == pygame.K_d:
-                        self.gameObjects[0].set_accel_x(0)
+            for objects in self.gameObjects:
+                objects.handle_input()
             # GAME: call all important updates and draw methods
             self.update()
             self.draw()

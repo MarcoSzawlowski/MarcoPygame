@@ -1,44 +1,19 @@
-import sys
 from player.players import *
 
+class AI(Players):
+    def __init__(self, x, y, width, height, maxjump, lives, action):
+        super().__init__(x, y, width, height, maxjump, lives)
+        self.actionstate = action
 
-class Human(Players):
     def handle_input(self):
-        for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
-                    elif event.key == pygame.K_SPACE:
-                        self.jump()
-                    elif event.key == pygame.K_w:
-                        pass
-                    elif event.key == pygame.K_s:
-                        self.down()
-                    elif event.key == pygame.K_a:
-                        self.set_accel_x(-1)
-                    elif event.key == pygame.K_d:
-                        self.set_accel_x(1)
-                    elif event.key == pygame.K_q:
-                        self.hurt(25)
-                    elif event.key == pygame.K_e:
-                        self.heal(25, 0)
-                    elif event.key == pygame.K_f:
-                        self.debug_collision = not self.debug_collision
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_w:
-                        pass
-                    elif event.key == pygame.K_SPACE:
-                        self.unjump()
-                    elif event.key == pygame.K_s:
-                        pass
-                    elif event.key == pygame.K_a:
-                        self.set_accel_x(0)
-                    elif event.key == pygame.K_d:
-                        self.set_accel_x(0)
+        if self.actionstate == "jump":
+            if self.state == 0:
+                self.jump()
+            elif self.state == 2:
+                self.jump()
+
+    def action(self, type):
+        self.actionstate = type
 
     def draw(self, win):
         # Figure out where we draw the person (either they are on screen or off)
@@ -87,7 +62,7 @@ class Human(Players):
         pygame.draw.rect(win, (0,0,0,50), (drawx,drawy,self.width,self.height), 0)
 
         # DRAW: head
-        pygame.draw.rect(win, (0,255,0), (x,y,30,30), 0)
+        pygame.draw.rect(win, (255,0,0), (x,y,30,30), 0)
 
         # DRAW: hurt animation
         if (self.ishurt):
