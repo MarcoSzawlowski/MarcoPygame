@@ -35,6 +35,8 @@ I started as wanting to play around with a top down grid system but now I've dec
 - Character select
 - Different characters
 - attacks
+- partical system
+
 
 #CONTROLS (will change)
 + "wasd" movement
