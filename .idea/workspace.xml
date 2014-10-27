@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aec3280f-f556-49ca-9178-2b206b4cdf4f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controls/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controls/controller.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controls/cpu.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controls/human.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/player/characters/prototype.py" />
-      <change type="DELETED" beforePath="C:\Users\Marco\Documents\GitHub\MarcoPygame\player\human.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Game.py" afterPath="$PROJECT_DIR$/Game.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/player/players.py" afterPath="$PROJECT_DIR$/player/players.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MarcoPygame.iws" />
@@ -494,7 +486,11 @@
       <created>1414439559888</created>
       <updated>1414439559888</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Made everything more object oriented designed:&#10;&#10;There are now controls and children of controls for both Human contorl and AI control.&#10;&#10;Players now have children, each child will be a different playable character with their unique attacks and / or timings.&#10;&#10;Each Player / Character has a controller class inside of it that handles the control (like above)">
+      <created>1414442966091</created>
+      <updated>1414442966091</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -562,7 +558,8 @@
     <MESSAGE value="Added basic UI setup&#10;&#10;Fixed some collision issues&#10;&#10;Added more states&#10;&#10;Can now fully go down one sided platforms" />
     <MESSAGE value="Fixed collision" />
     <MESSAGE value="Added simple ledge grab and state" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added simple ledge grab and state" />
+    <MESSAGE value="Made everything more object oriented designed:&#10;&#10;There are now controls and children of controls for both Human contorl and AI control.&#10;&#10;Players now have children, each child will be a different playable character with their unique attacks and / or timings.&#10;&#10;Each Player / Character has a controller class inside of it that handles the control (like above)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made everything more object oriented designed:&#10;&#10;There are now controls and children of controls for both Human contorl and AI control.&#10;&#10;Players now have children, each child will be a different playable character with their unique attacks and / or timings.&#10;&#10;Each Player / Character has a controller class inside of it that handles the control (like above)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
