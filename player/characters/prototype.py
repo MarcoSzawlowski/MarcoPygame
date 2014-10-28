@@ -7,7 +7,7 @@ class Prototype(Players):
         self.myupdate()
 
     def myupdate(self):
-        print("test")
+        pass
 
     def draw(self, win):
         # Figure out where we draw the person (either they are on screen or off)

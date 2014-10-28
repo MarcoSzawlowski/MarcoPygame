@@ -18,10 +18,15 @@ class Game():
         self.debug_map = False
         self.font = pygame.font.Font(None, 100)
         self.font2 = pygame.font.Font(None, 120)
+        self.controllercount = pygame.joystick.get_count()
+
+        ## setup controller
+        self.testcontroller = pygame.joystick.Joystick(0)
+        self.testcontroller.init()
 
         ## gameObjects are the players (for now)
-        self.gameObjects.append(Prototype(550, 400, 50, 100, 40, 3, "Human"))
-        self.gameObjects.append(Prototype(600, 400, 50, 100, 30, 3, "CPU"))
+        self.gameObjects.append(Prototype(550, 400, 50, 100, 40, 6, "Human", self.testcontroller))
+        self.gameObjects.append(Prototype(600, 400, 50, 100, 30, 6, "CPU", 0))
 
         ## add some platforms
         self.platforms.append(Platform(300,500,1500,100,0))
@@ -29,6 +34,7 @@ class Game():
         self.platforms.append(Platform(800,200,400,100,0))
         self.platforms.append(Platform(500,100,400,10,1))
         self.platforms.append(Platform(-200,1000,700,10,1))
+
 
     def gameloop(self):
         while True:
@@ -38,7 +44,6 @@ class Game():
             # CONTROLS: main event handling
             for objects in self.gameObjects:
                 objects.handle_input()
-                print("got here")
             # GAME: call all important updates and draw methods
             self.update()
             self.draw()
@@ -49,8 +54,6 @@ class Game():
 
     def update(self):
         for objects in self.gameObjects:
-
-            print("got here three")
             objects.update(self.platforms)
 
         for plats in self.platforms:
@@ -75,10 +78,16 @@ class Game():
             offset_players += 400
             offset_lives = 0
             playerpercent = self.font.render(str(players.health) + "%", 1, (0,0,0))
+            charactername = self.font.render("Proto", 1, (0,0,0))
+            lives = self.font.render("x" + str(players.lives), 1, (0,100,0))
             #playerpercent2 = self.font2.render(str(players.health) + "%", 1, (0,0,0))
             #self.win.blit(playerpercent2, (offset_players - 2, 720 - 120 - 5))
             self.win.blit(playerpercent, (offset_players, 720 - 120))
-
-            for i in range(0,players.lives):
-                pygame.draw.circle(self.win, (0,100,100), (offset_players + offset_lives, 720 - 160), 20, 0)
-                offset_lives += 40
+            self.win.blit(charactername, (offset_players - 50, 720 - 65))
+            if players.lives > 5:
+                pygame.draw.circle(self.win, (0,100,0), (offset_players + offset_lives, 720 - 160), 20, 0)
+                self.win.blit(lives, (offset_players + 30, 720 - 195))
+            else:
+                for i in range(0,players.lives):
+                    pygame.draw.circle(self.win, (0,100,100), (offset_players + offset_lives, 720 - 160), 20, 0)
+                    offset_lives += 40

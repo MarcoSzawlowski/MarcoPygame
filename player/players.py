@@ -4,7 +4,21 @@ from controls.human import *
 from controls.cpu import *
 
 class Players:
-    def __init__(self, x, y, width, height, maxjump, lives, control):
+    # player_states:
+    # -1: loading
+    # 0: default standing
+    # 1: jumping
+    # 2: falling
+    # 3: second jump
+    # 4: falling without anymore jump
+    # 5: hurt
+    # 6: walking
+    # 7: fast fall
+    # 8: crouching (from standing still)
+    # 9: ledge grab
+    # 10: hurt (can't do input)
+    # 11: attacking (can't do input, will have different animation depending on attack)
+    def __init__(self, x, y, width, height, maxjump, lives, control, in_control):
         self.position = [x, y]
         self.velocity = [0, 0]
         self.acceleration = [0, 0]
@@ -20,33 +34,24 @@ class Players:
         self.facingright = 1
         self.maxfall = 9
         self.state = 0 #default standing state
+        self.input = in_control
 
         if control == "Human":
             self.controller = Human(self)
         else:
             self.controller = CPU(self, "jump")
 
-    # UPDATE:
-    # player_states:
-    # 0: default standing
-    # 1: jumping
-    # 2: falling
-    # 3: second jump
-    # 4: falling without anymore jump
-    # 5: hurt
-    # 6: walking
-    # 7: fast fall
-    # 8: crouching (from standing still)
-    # 9: ledge grab
 
+    # Might need this later
     def handle_state(self, action):
         pass
 
+    # Handle input
     def handle_input(self):
         self.controller.handle_input()
 
+    # UPDATE:
     def update(self, collide_list):
-        print("got here f")
         # DO ACCELERATION FIRST
         if not self.state == 9:
             self.handle_movement()
@@ -123,7 +128,8 @@ class Players:
 
     # MOVEMENT: pressing down (either crouches or fast fall)
     def down(self):
-        if self.state == 1 or self.state == 2 or self.state == 3 or self.state == 4 or self.state == 8:
+        # for allowing drop when jumping if self.state == 1 or self.state == 2 or self.state == 3 or self.state == 4 or self.state == 8:
+        if self.state == 2 or self.state == 4:
             self.state = 7
             self.maxfall = 24
             self.set_accel_y(15)
@@ -205,7 +211,7 @@ class Players:
         if self.velocity[1] > self.maxfall:
             self.velocity[1] = self.maxfall
 
-        print(self.jumpcounter, " ", self.state, " ", self.velocity)
+        #print(self.jumpcounter, " ", self.state, " ", self.velocity)
         # make sure we arent jumping too fast
         if self.state == 1 or self.state == 3:
             if self.velocity[1] < -20:
