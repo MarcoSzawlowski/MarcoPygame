@@ -20,19 +20,28 @@ I started as wanting to play around with a top down grid system but now I've dec
 + Basic Platform system
 + Damage and Healing system
 + 60 fps ticks (Pygame feature, hopefully I'm using it correctly and no issues pop up for lower FPS such as the game running in slow motion)
++ Platform collision detection
++ Solid and Oneway platforms acting as they should (being able to go through bottom of one way plats and falling through them)
++ Ledge system
++ Human and CPU controls base
++ Double Jump
++ Physics system including jump heights, acceleration, velocity, gravity
++ Basic character system, starting with prototype character (child of Players class)
 
 #GOING TO IMPLIMENT
 - Multiplayer (hopefully)
-- NPC players
+- CPU players
 - Win screen and Statistics
 - Character select
 - Different characters
-- different attack moves
-- sprinting
+- attacks
+- partical system
+
 
 #CONTROLS (will change)
 + "wasd" movement
 + "q/e" hurt/heal
++ "space" jump
 + "f" debug mode for collision
 
 #NOTES
