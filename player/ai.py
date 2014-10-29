@@ -43,7 +43,7 @@ class AI(Players):
 
         # DRAW: face + face movement (probably will change for final game to sprites)
         x = drawx + 10
-        y = drawy+ 10
+        y = drawy + 10
         if (self.facingright):
             x += 5
         else:
@@ -62,9 +62,9 @@ class AI(Players):
         pygame.draw.rect(win, (0,0,0,50), (drawx,drawy,self.width,self.height), 0)
 
         # DRAW: head
-        pygame.draw.rect(win, (255,0,0), (x,y,30,30), 0)
+        pygame.draw.rect(win, (0,255,0), (x,y,30,30), 0)
 
-        # DRAW: hurt animation
+        # DRAW: hurt animation (not needed for now)
         if (self.ishurt):
             if(self.hurtcounter == 0):
                 self.ishurt = False

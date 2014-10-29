@@ -2,6 +2,7 @@ import pygame
 
 from controls.human import *
 from controls.cpu import *
+from player.attack import *
 
 class Players:
     # player_states:
@@ -18,6 +19,7 @@ class Players:
     # 9: ledge grab
     # 10: hurt (can't do input)
     # 11: attacking (can't do input, will have different animation depending on attack)
+
     def __init__(self, x, y, width, height, maxjump, lives, control, in_control):
         self.position = [x, y]
         self.velocity = [0, 0]
@@ -35,6 +37,8 @@ class Players:
         self.maxfall = 9
         self.state = 0 #default standing state
         self.input = in_control
+        self.attacks = Attack(self)
+        self.type = control
 
         if control == "Human":
             self.controller = Human(self)
@@ -52,6 +56,12 @@ class Players:
 
     # UPDATE:
     def update(self, collide_list):
+        # Attack quick test:
+        self.attacks.frame += 1
+        if self.attacks.frame == 60:
+            print("got here")
+            self.attacks = Attack(self)
+
         # DO ACCELERATION FIRST
         if not self.state == 9:
             self.handle_movement()
@@ -275,6 +285,12 @@ class Players:
                             self.velocity = [0,0]
                         return (1, plats.position[0] + plats.width)
         return (0, 0)
+
+    def attack(self, attack_type):
+        # put it in an animation attacking state
+        self.state = 11
+        # put the attack frames inside the attack vector
+        self.attacks = attack_type
 
     def draw(self, win):
         pass

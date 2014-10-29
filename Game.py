@@ -1,5 +1,5 @@
 from platform.platforms import *
-from player.characters.prototype import *
+from player.characters.prototype.prototype import *
 from player.players import *
 
 
@@ -21,11 +21,15 @@ class Game():
         self.controllercount = pygame.joystick.get_count()
 
         ## setup controller
-        self.testcontroller = pygame.joystick.Joystick(0)
-        self.testcontroller.init()
+        #self.testcontroller = pygame.joystick.Joystick(0)
+        #self.testcontroller.init()
 
-        ## gameObjects are the players (for now)
-        self.gameObjects.append(Prototype(550, 400, 50, 100, 40, 6, "Human", self.testcontroller))
+        ## gameObjects are the players
+
+        # if controller:
+            #self.gameObjects.append(Prototype(550, 400, 50, 100, 40, 6, "Human", self.testcontroller))
+        # if keyboard:
+        self.gameObjects.append(Prototype(550, 400, 50, 100, 40, 6, "Human", 0))
         self.gameObjects.append(Prototype(600, 400, 50, 100, 30, 6, "CPU", 0))
 
         ## add some platforms

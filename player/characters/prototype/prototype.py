@@ -1,5 +1,5 @@
 from player.players import *
-
+from player.characters.prototype.attacks.prototype_attacks import *
 
 class Prototype(Players):
     def update(self, collide_list):
@@ -8,6 +8,10 @@ class Prototype(Players):
 
     def myupdate(self):
         pass
+
+    def standing_attack(self):
+        print("attacking standing")
+        self.attacks = PrototypeStandingAttack(self)
 
     def draw(self, win):
         # Figure out where we draw the person (either they are on screen or off)
@@ -85,3 +89,6 @@ class Prototype(Players):
 
             pygame.draw.rect(win,(255,50,50), move_vertical, 0)
             pygame.draw.rect(win,(50,250,50), move_horizontal, 0)
+
+        # DRAW: attacks (particles, etc)
+        self.attacks.draw(win)

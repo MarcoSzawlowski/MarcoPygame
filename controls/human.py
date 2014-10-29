@@ -7,7 +7,9 @@ from pygame.locals import *
 
 class Human(Controller):
     def handle_input(self):
-        using_controller = True
+        # if controller:
+            #using_controller = True
+        using_controller = False
         if (using_controller):
             self.handle_controller()
         else:
@@ -105,6 +107,9 @@ class Human(Controller):
                         self.mychar.heal(25, 0)
                     elif event.key == pygame.K_f:
                         self.mychar.debug_collision = not self.mychar.debug_collision
+                    elif event.key == pygame.K_g:
+                        print("attacking?")
+                        self.mychar.standing_attack()
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_w:
                         pass
