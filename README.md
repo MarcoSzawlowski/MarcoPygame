@@ -27,6 +27,7 @@ I started as wanting to play around with a top down grid system but now I've dec
 + Double Jump
 + Physics system including jump heights, acceleration, velocity, gravity
 + Basic character system, starting with prototype character (child of Players class)
++ Basic attack structure
 
 #GOING TO IMPLIMENT
 - Multiplayer (hopefully)
@@ -34,15 +35,15 @@ I started as wanting to play around with a top down grid system but now I've dec
 - Win screen and Statistics
 - Character select
 - Different characters
-- attacks
 - partical system
-
+- special attacks
 
 #CONTROLS (will change)
 + "wasd" movement
 + "q/e" hurt/heal
 + "space" jump
 + "f" debug mode for collision
++ "g" to attack
 
 #NOTES
 I've tried to set things up so that the basic features can easily be built into bigger features
