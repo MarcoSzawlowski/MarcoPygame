@@ -35,7 +35,7 @@ I started as wanting to play around with a top down grid system but now I've dec
 - Win screen and Statistics
 - Character select
 - Different characters
-- partical system
+- particles system
 - special attacks
 
 #CONTROLS (will change)
