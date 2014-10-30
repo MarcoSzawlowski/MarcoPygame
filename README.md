@@ -49,5 +49,5 @@ I started as wanting to play around with a top down grid system but now I've dec
 I've tried to set things up so that the basic features can easily be built into bigger features
 
 #Screenshots (to document how the looks have changed)
-http://i.imgur.com/DFmb9vk.png
+![Old](http://i.imgur.com/DFmb9vk.png)
 (Before I add sprites)
