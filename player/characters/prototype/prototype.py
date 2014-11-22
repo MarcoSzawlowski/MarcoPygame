@@ -10,8 +10,9 @@ class Prototype(Players):
         pass
 
     def standing_attack(self):
-        print("attacking standing")
-        self.attacks = PrototypeStandingAttack(self)
+        if self.state == 0 and not self.state == 11:
+            print("attacking standing")
+            self.attacks = PrototypeStandingAttack(self)
 
     def draw(self, win):
         # Figure out where we draw the person (either they are on screen or off)

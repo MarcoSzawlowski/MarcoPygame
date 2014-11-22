@@ -56,14 +56,14 @@ class Players:
 
     # UPDATE:
     def update(self, collide_list):
+        print (self.state)
         # Attack quick test:
         self.attacks.frame += 1
         if self.attacks.frame == 60:
-            print("got here")
             self.attacks = Attack(self)
 
         # DO ACCELERATION FIRST
-        if not self.state == 9:
+        if not self.state == 9 and not self.state == 11:
             self.handle_movement()
 
         # Make a collision rectangle for the movement of the character
